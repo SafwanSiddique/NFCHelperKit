@@ -4,3 +4,5 @@ The `NFCHelperKit` class in iOS simplifies NFC operations like reading, writing,
 I am currently adding all functionalities that are supported by the iOS CoreNFC Infrastructure. I will soon add the integrated functions like readTag(), writeTag(data), lockTag, addPasswordToTag(password), removePassword(password), eraseTag() etc. Please be patient :)
 
 In the mean while I have uploaded the current version of the code. (It is still very rough and unpolished. But if you need a part of this urgently you can use snippets from the code. //avoid the readTag part for now as it will probably not work as it not dynamic at all right now. Will complete that first.) 
+
+PS. For those interested I will update the repo with an example code and a mini-guide on how ot use this class while I work on a the more comprehensice and complete solution
