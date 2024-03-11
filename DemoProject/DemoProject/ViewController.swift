@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onTapButton(_ sender: UIButton) {
-        NFCHelperKit.shared.unlockTag(password: "1234") { error in
+        NFCHelperKit.shared.lockTagWithoutData(password: "1234") { error in
             if error != nil {
                 print(error!)
             }
