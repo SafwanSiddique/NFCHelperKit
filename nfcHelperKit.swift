@@ -25,7 +25,46 @@ enum NFCAction: Identifiable {
     }
 }
 
+//MARK: NFC Ease of access Methods
+extension NFCHelperKit {
+    func lockTagWithoutData(password: String, completion: @escaping (_ error: String?) -> Void) {
+        if password.count != 4 {
+            completion("The password must be a 4 digits")
+            return
+        }
+        
+        if !password.allSatisfy({ $0.isNumber }) {
+            completion("The password must contain only numbers")
+        }
+        
+        self.password = password
+        self.nfcAction = .SetTagPassword
+        self.startNDEFSession()
+        
+        completion(nil)
+        return
+    }
+    
+    func unlockTag(password: String, completion: @escaping (_ error: String?) -> Void) {
+        if password.count != 4 {
+            completion("The password must be a 4 digits")
+            return
+        }
+        
+        if !password.allSatisfy({ $0.isNumber }) {
+            completion("The password must contain only numbers")
+        }
+        
+        self.password = password
+        self.nfcAction = .RemoveTagPassword
+        self.startNDEFSession()
+        
+        completion(nil)
+        return
+    }
+}
 
+//MARK: Underlying Implementation
 class NFCHelperKit: UIViewController {
     
     public static var shared = NFCHelperKit()
@@ -38,7 +77,7 @@ class NFCHelperKit: UIViewController {
     var password = ""
     
     var singleWriteCompleted:(()->Void)?
-    var readSuccess:((_ tagData: Tag_Details)->Void)?
+//    var readSuccess:((_ tagData: Tag_Details)->Void)?
     var succesfulWritePrompt = "Tag Configured Successfully"
     
     
@@ -795,8 +834,8 @@ extension NFCHelperKit: NFCTagReaderSessionDelegate {
                                                 }
                                             }
                                             DispatchQueue.main.async {
-                                                let tagData = Tag_Details(records: dataArray, serialNumber: serial_NFC, isLocked: read_only, isPasswordProteced: password_protected, usedSize: used_size, totalSize: total_size, tagType: tag_type, memoryInfo: memory_info, mifareType: mifare_type, isoType: iso_type)
-                                                self.readSuccess?(tagData)
+//                                                let tagData = Tag_Details(records: dataArray, serialNumber: serial_NFC, isLocked: read_only, isPasswordProteced: password_protected, usedSize: used_size, totalSize: total_size, tagType: tag_type, memoryInfo: memory_info, mifareType: mifare_type, isoType: iso_type)
+//                                                self.readSuccess?(tagData)
                                             }
                                             session.invalidate()
                                             
