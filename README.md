@@ -1,24 +1,43 @@
 # NFCHelperKit
 The `NFCHelperKit` class in iOS simplifies NFC operations like reading, writing, and securing tags with password protection. It provides single-line methods for complex actions, making NFC integration and usage efficient and user-friendly making it more accesible for developers of all levels. 
 
-UPDATE: I have just added Ease of Access functions (that is what i am going to call the single line functions for now) for setting a password and removing password. Anyways, The code is still very messy but to use this class all you have to do i create a swift file in your project (name it "NFCHelperKit" for consistency and then copy the contents of the NFCHelperKit.swift file from the base folder into that file. Then to use the functions simply call them using:
+UPDATE: I have just added Ease of Access functions (that is what i am going to call the single line functions for now) The inner functionality is still very messy and confusing. (Sorry! But I am working on it. A comprehensive solution coming soon.)
+    
+HOW TO USE: Anyways, The code is still very messy but to use this class all you have to do i create a swift file in your project (name it "NFCHelperKit" for consistency and then copy the contents of the NFCHelperKit.swift file from the base folder into that file. Then to use the functions simply call them using:
 ```swift
-NFCHelperKit.shared.lockTagWithoutData(password: "1234") { error in
-  if error != nil {
-      print(error!)
-      //handle incase any error occurs
-  }
-}
+NFCHelperKit.shared.<function you need to call>
 ```
-OR
+
+SUPPORTED FUNCTIONS: 
+    - Password Protect a Tag
 ```swift
-NFCHelperKit.shared.unlockTag(password: "1234") { error in
-  if error != nil {
-      print(error!)
-      //handle incase any error occurs
-  }
-}
+    func passwordProtectTagWithoutData(password: String, completion: @escaping (_ error: String?) -> Void)
 ```
+    - Remove password from a password protected tag
+```swift
+    func passwordRemoveTag(password: String, completion: @escaping (_ error: String?) -> Void)
+```
+    - Lock Tag (Permanently)
+```swift
+    func lockTag(completion: @escaping (_ error: String?) -> Void)
+```
+    - Erase contents of the tag
+```swift
+    func eraseTag(completion: @escaping (_ error: String?) -> Void)
+```
+    - Write a Single Url to a Tag
+```swift
+    func writeUrl(urlString: String, completion: @escaping (_ error: String?) -> Void)
+```
+
+FEATURES COMING SOON:
+    - Write other data types (Text, Contact, Email, Location, Call, Message, Wifi)
+    - Write Multiple Records to a single Tag
+    - Comments to easily understand the inner functionality of the code
+    - Password protect a tag along with data (In one tap)
+    - A complete readme file
+    - Multiple variations of each function to cater to each need
+    
 TLDR: These are the only function available at this time. I am working on the other parts. The code is very messy. And I have to make a proper readme.
 
 

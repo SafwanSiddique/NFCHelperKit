@@ -18,7 +18,7 @@ enum DataType: Identifiable {
 
 enum NFCAction: Identifiable {
     
-    case SingleWriteTag, SetTagPassword, RemoveTagPassword, ReadTag, EraseTag, LockTag
+    case WriteTag, SetTagPassword, RemoveTagPassword, ReadTag, EraseTag, LockTag
     
     var id: Int {
         hashValue
@@ -27,7 +27,7 @@ enum NFCAction: Identifiable {
 
 //MARK: NFC Ease of access Methods
 extension NFCHelperKit {
-    func lockTagWithoutData(password: String, completion: @escaping (_ error: String?) -> Void) {
+    func passwordProtectTagWithoutData(password: String, completion: @escaping (_ error: String?) -> Void) {
         if password.count != 4 {
             completion("The password must be a 4 digits")
             return
@@ -42,10 +42,9 @@ extension NFCHelperKit {
         self.startNDEFSession()
         
         completion(nil)
-        return
     }
     
-    func unlockTag(password: String, completion: @escaping (_ error: String?) -> Void) {
+    func passwordRemoveTag(password: String, completion: @escaping (_ error: String?) -> Void) {
         if password.count != 4 {
             completion("The password must be a 4 digits")
             return
@@ -60,8 +59,36 @@ extension NFCHelperKit {
         self.startNDEFSession()
         
         completion(nil)
-        return
     }
+    
+    func lockTag(completion: @escaping (_ error: String?) -> Void) {
+        self.nfcAction = .LockTag
+        self.startNDEFSession()
+        
+        completion(nil)
+    }
+    
+    func eraseTag(completion: @escaping (_ error: String?) -> Void) {
+        self.nfcAction = .EraseTag
+        self.startNDEFSession()
+        
+        completion(nil)
+    }
+    
+    func writeUrl(urlString: String, completion: @escaping (_ error: String?) -> Void) {
+        if urlString.count == 0 {
+            completion("Url String cant be empty")
+        }
+        
+        self.nfcAction = .WriteTag
+        self.tagData = [urlString]
+        self.dataType = .Url
+        self.startNDEFSession()
+        
+        completion(nil)
+    }
+    
+    
 }
 
 //MARK: Underlying Implementation
@@ -163,7 +190,7 @@ extension NFCHelperKit: NFCTagReaderSessionDelegate {
         
         switch nfcAction {
             //MARK: Single Write Tag
-        case .SingleWriteTag:
+        case .WriteTag:
             print("CASE - single write tag")
                 
             switch tags.first! {
