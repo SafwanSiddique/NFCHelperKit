@@ -32,12 +32,12 @@ func writeUrl(urlString: String, completion: @escaping (_ error: String?) -> Voi
 ```
 
 ## FEATURES COMING SOON:
-    * Write other data types (Text, Contact, Email, Location, Call, Message, Wifi)
-    * Write Multiple Records to a single Tag
-    * Comments to easily understand the inner functionality of the code
-    * Password protect a tag along with data (In one tap)
-    * A complete readme file
-    * Multiple variations of each function to cater to each need
+* Write other data types (Text, Contact, Email, Location, Call, Message, Wifi)
+* Write Multiple Records to a single Tag
+* Comments to easily understand the inner functionality of the code
+* Password protect a tag along with data (In one tap)
+* A complete readme file
+* Multiple variations of each function to cater to each need
     
 TLDR: These are the only function available at this time. I am working on the other parts.
 
